@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Sourdough</h1>
+    <form name="frm-pin" method="post" action="pin-index-a.php">
+        <label class="w3-text-green"><b>Total mass</b></label>  
+	    <input type="number" id="total_mass" value="1000" onchange="calculateAmount()" />
+	    </br>
+        <label class="w3-text-green"><b>Hydration</b></label>
+        <input type="number" id="hydration" value="75" onchange="calculateAmount()"/>
+     </br>
+        <label class="w3-text-green"><b>Starter percentage</b></label>
+        <input type="number" id="starter_percent" value="10" onchange="calculateAmount()"/>
+        </br>
+        <label class="w3-text-green"><b>Yeast percentage</b></label>
+        <input type="number" id="yeast_percent" value="0.2" onchange="calculateAmount()"/>
+  </br>
+        <label class="w3-text-green"><b>Whole wheat flour percentage</b></label>
+        <input type="number" id="whole_wheat_percent" value="35" onchange="calculateAmount()" />
+  </br>
+<label class="w3-text-green"><b>Salt percentage</b></label>
+        <input type="number" id="salt_percent" value="2" onchange="calculateAmount()" />
+        
+        	    </br>	    </br>
+        	    </br>	    </br>
+    <h3>Result</h3>
+        <label><b>White flour</b></label>
+        <input class="w3-input w3-border"  id="white_flour" type="number" readonly>
+</br>
+<label><b>Whole wheat flour</b></label>
+        <input class="w3-input w3-border" id="whole_wheat_flour" type="number" readonly>
+</br>
+<label><b>Water</b></label>
+        <input class="w3-input w3-border" id="water" type="number" readonly>
+</br>
+
+<label><b>Starter</b></label>
+        <input class="w3-input w3-border" id="starter" type="number" readonly>
+</br>
+<label><b>Yeast</b></label>
+        <input class="w3-input w3-border" id="yeast" type="number" readonly>
+</br>
+<label><b>Salt</b></label>
+        <input class="w3-input w3-border" id="salt" type="number" readonly>
+</br>
+
+
+        <script>
+            function calculateAmount() {
+               
+                var total_mass = document.getElementById('total_mass').value;
+			    var hydration = document.getElementById('hydration').value/100.0;
+			  var starter_percent = document.getElementById('starter_percent').value/100.0;
+			  var yeast_percent = document.getElementById('yeast_percent').value/100.0;
+			  var whole_wheat_percent = document.getElementById('whole_wheat_percent').value/100.0;
+			   var salt_percent = document.getElementById('salt_percent').value/100.0;
+			  
+			  
+			  var white_flour  =  total_mass*(1-whole_wheat_percent)/(1.0+hydration+starter_percent);
+                document.getElementById('white_flour').value = white_flour;
+			  var whole_wheat_flour = white_flour*whole_wheat_percent/(1-whole_wheat_percent);
+			 document.getElementById('whole_wheat_flour').value = whole_wheat_flour
+            
+		  var total_flour = white_flour + whole_wheat_flour;
+		 
+		  	document.getElementById('water').value = total_flour * hydration;
+			  document.getElementById('starter').value = total_flour*starter_percent;
+			  document.getElementById('yeast').value = total_flour*yeast_percent;
+			  document.getElementById('salt').value = total_flour*salt_percent;
+		  }
+
+		  calculateAmount();
+        </script>
+        <body>
+</html>
