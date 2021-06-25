@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
@@ -14,7 +8,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
   </head>
   <style>
     body,
@@ -108,48 +101,37 @@
         </div>
       </form>
     </div>
-    <div class="ui basic padded segment">
-      <h3>Result</h3>
-      <label><b>White flour</b></label>
-      <div class="ui input">
-        <input
-          class="w3-input w3-border"
-          id="white_flour"
-          type="number"
-          readonly
-        />
-      </div>
-      <br />
-      <label><b>Whole wheat flour</b></label>
-      <div class="ui input">
-        <input
-          class="w3-input w3-border"
-          id="whole_wheat_flour"
-          type="number"
-          readonly
-        />
-      </div>
-      <br />
-      <label><b>Water</b></label>
-      <div class="ui input">
-        <input class="w3-input w3-border" id="water" type="number" readonly />
-      </div>
-      <br />
 
-      <label><b>Starter</b></label>
-      <div class="ui input">
-        <input class="w3-input w3-border" id="starter" type="number" readonly />
-      </div>
-      <br />
-      <label><b>Yeast</b></label>
-      <div class="ui input">
-        <input class="w3-input w3-border" id="yeast" type="number" readonly />
-      </div>
-      <br />
-      <label><b>Salt</b></label>
-      <div class="ui input">
-        <input class="w3-input w3-border" id="salt" type="number" readonly />
-      </div>
+    <div class="ui basic padded segment">
+      <h2 class="ui header">Result</h2>
+      <table class="ui very basic table">
+        <tbody>
+          <tr>
+            <td><b>White flour</b></td>
+            <td id="white_flour"></td>
+          </tr>
+          <tr>
+            <td><b>Whole wheat flour</b></td>
+            <td id="whole_wheat_flour"></td>
+          </tr>
+          <tr>
+            <td><b>Water</b></td>
+            <td id="water"></td>
+          </tr>
+          <tr>
+            <td><b>Starter</b></td>
+            <td id="starter"></td>
+          </tr>
+          <tr>
+            <td><b>Yeast</b></td>
+            <td id="yeast"></td>
+          </tr>
+          <tr>
+            <td><b>Salt</b></td>
+            <td id="salt"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <script>
@@ -168,18 +150,20 @@
         var white_flour =
           (total_mass * (1 - whole_wheat_percent)) /
           (1.0 + hydration + starter_percent);
-        document.getElementById("white_flour").value = white_flour;
+        document.getElementById("white_flour").innerHTML = white_flour.toFixed(2);
         var whole_wheat_flour =
           (white_flour * whole_wheat_percent) / (1 - whole_wheat_percent);
-        document.getElementById("whole_wheat_flour").value = whole_wheat_flour;
+        document.getElementById("whole_wheat_flour").innerHTML =
+          whole_wheat_flour.toFixed(2);
 
         var total_flour = white_flour + whole_wheat_flour;
 
-        document.getElementById("water").value = total_flour * hydration;
-        document.getElementById("starter").value =
-          total_flour * starter_percent;
-        document.getElementById("yeast").value = total_flour * yeast_percent;
-        document.getElementById("salt").value = total_flour * salt_percent;
+        document.getElementById("water").innerHTML = (total_flour * hydration).toFixed(2);
+        document.getElementById("starter").innerHTML =
+          (total_flour * starter_percent).toFixed(2);
+        document.getElementById("yeast").innerHTML =
+          (total_flour * yeast_percent).toFixed(2);
+        document.getElementById("salt").innerHTML = (total_flour * salt_percent).toFixed(2);
       }
 
       calculateAmount();
