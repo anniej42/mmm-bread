@@ -2,31 +2,37 @@
 <html>
   <head>
     <title>mmm, bread</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
-      integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+    <link rel="stylesheet" href="/semantic.min.css" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
     />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   </head>
   <style>
-    body,
-    .ui {
-      font-size: 24px !important;
+    @font-face {
+      font-family: "Titillium Web";
+      src: url("/TitilliumWeb-Regular.ttf") format("truetype");
     }
-    /* @media all and (max-width: 25em) {
-  html {
-    font-size:50%;
-  }
-} */
+
+    @font-face {
+      font-family: "Titillium Web";
+      font-weight: bold;
+      src: url("/TitilliumWeb-SemiBold.ttf") format("truetype");
+    }
+    * {
+      font-family: "Titillium Web", "Helvetica", sans-serif !important;
+    }
+
+    .fields > label {
+      font-weight: bold !important;
+    }
   </style>
   <body>
     <div class="ui basic padded segment">
-      <h1>Sourdough</h1>
+      <h1 class="ui header">Sourdough</h1>
 
       <form
         name="frm-pin"
@@ -34,73 +40,75 @@
         action="pin-index-a.php"
         class="ui form"
       >
-        <div class="six wide field">
-          <label class="w3-text-green"><b>Total mass</b></label>
-          <div class="ui input">
-            <input
-              type="number"
-              id="total_mass"
-              value="1000"
-              onchange="calculateAmount()"
-            />
+        <div class="fields">
+          <div class="six wide field">
+            <label><b>Total mass</b></label>
+            <div class="ui input">
+              <input
+                type="number"
+                id="total_mass"
+                value="1000"
+                onchange="calculateAmount()"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="six wide field">
-          <label class="w3-text-green"><b>Hydration</b></label>
-          <div class="ui input">
-            <input
-              type="number"
-              id="hydration"
-              value="75"
-              onchange="calculateAmount()"
-            />
+          <div class="six wide field">
+            <label><b>Hydration</b></label>
+            <div class="ui input">
+              <input
+                type="number"
+                id="hydration"
+                value="75"
+                onchange="calculateAmount()"
+              />
+            </div>
+          </div>
+          <div class="six wide field">
+            <label><b>Starter percentage</b></label>
+            <div class="ui input">
+              <input
+                type="number"
+                id="starter_percent"
+                value="10"
+                onchange="calculateAmount()"
+              />
+            </div>
           </div>
         </div>
-        <div class="six wide field">
-          <label class="w3-text-green"><b>Starter percentage</b></label>
-          <div class="ui input">
-            <input
-              type="number"
-              id="starter_percent"
-              value="10"
-              onchange="calculateAmount()"
-            />
+        <div class="fields">
+          <div class="six wide field">
+            <label><b>Yeast percentage</b></label>
+            <div class="ui input">
+              <input
+                type="number"
+                id="yeast_percent"
+                value="0.2"
+                onchange="calculateAmount()"
+              />
+            </div>
           </div>
-        </div>
-        <div class="six wide field">
-          <label class="w3-text-green"><b>Yeast percentage</b></label>
-          <div class="ui input">
-            <input
-              type="number"
-              id="yeast_percent"
-              value="0.2"
-              onchange="calculateAmount()"
-            />
+          <div class="six wide field">
+            <label><b>Whole wheat flour percentage</b></label>
+            <div class="ui input">
+              <input
+                type="number"
+                id="whole_wheat_percent"
+                value="35"
+                onchange="calculateAmount()"
+              />
+            </div>
           </div>
-        </div>
-        <div class="six wide field">
-          <label class="w3-text-green"
-            ><b>Whole wheat flour percentage</b></label
-          >
-          <div class="ui input">
-            <input
-              type="number"
-              id="whole_wheat_percent"
-              value="35"
-              onchange="calculateAmount()"
-            />
-          </div>
-        </div>
-        <div class="six wide field">
-          <label class="w3-text-green"><b>Salt percentage</b></label>
-          <div class="ui input">
-            <input
-              type="number"
-              id="salt_percent"
-              value="2"
-              onchange="calculateAmount()"
-            />
+          <div class="six wide field">
+            <label><b>Salt percentage</b></label>
+            <div class="ui input">
+              <input
+                type="number"
+                id="salt_percent"
+                value="2"
+                onchange="calculateAmount()"
+              />
+            </div>
           </div>
         </div>
       </form>
@@ -154,7 +162,8 @@
         var white_flour =
           (total_mass * (1 - whole_wheat_percent)) /
           (1.0 + hydration + starter_percent);
-        document.getElementById("white_flour").innerHTML = white_flour.toFixed(2);
+        document.getElementById("white_flour").innerHTML =
+          white_flour.toFixed(2);
         var whole_wheat_flour =
           (white_flour * whole_wheat_percent) / (1 - whole_wheat_percent);
         document.getElementById("whole_wheat_flour").innerHTML =
@@ -162,12 +171,18 @@
 
         var total_flour = white_flour + whole_wheat_flour;
 
-        document.getElementById("water").innerHTML = (total_flour * hydration).toFixed(2);
-        document.getElementById("starter").innerHTML =
-          (total_flour * starter_percent).toFixed(2);
-        document.getElementById("yeast").innerHTML =
-          (total_flour * yeast_percent).toFixed(2);
-        document.getElementById("salt").innerHTML = (total_flour * salt_percent).toFixed(2);
+        document.getElementById("water").innerHTML = (
+          total_flour * hydration
+        ).toFixed(2);
+        document.getElementById("starter").innerHTML = (
+          total_flour * starter_percent
+        ).toFixed(2);
+        document.getElementById("yeast").innerHTML = (
+          total_flour * yeast_percent
+        ).toFixed(2);
+        document.getElementById("salt").innerHTML = (
+          total_flour * salt_percent
+        ).toFixed(2);
       }
 
       calculateAmount();
